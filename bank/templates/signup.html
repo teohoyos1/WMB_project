@@ -1,0 +1,115 @@
+{% extends 'shared/base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css" integrity="sha512-gxWow8Mo6q6pLa1XH/CcH8JyiSDEtiwJV78E+D+QP0EVasFs8wKXq16G8CLD4CJ2SnonHr4Lm/yY2fSI2+cbmw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        header, footer {
+            display:none!important;visibility: hidden!important;position: absolute!important; top: -9999px!important; left: -9999px !important;opacity: 0 !important;width: 0 !important; height: 0!important;
+        }
+        .iti {
+			width: 100%;
+		}
+    </style>
+{% endblock %}
+
+{% block content %}
+    <main>
+        <div class="container">
+
+            <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+                            <div class="d-flex justify-content-center py-4">
+                                <a href="index.html" class="logo d-flex align-items-center w-auto">
+                                <img src="../../static/assets/img/logo_p1.png" alt="">
+                                <span class="d-none d-lg-block">NiceAdmin</span>
+                                </a>
+                            </div><!-- End Logo -->
+
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <div class="pt-4 pb-2">
+                                        <h5 class="card-title text-center pb-0 fs-4">Crear una cuenta</h5>
+                                        <p class="text-center small">Ingresa tus datos para ingresar</p>
+                                    </div>
+
+                                    <form class="row g-3 needs-validation" novalidate>
+                                        <div class="col-12">
+                                            <label for="yourName" class="form-label">Nombre</label>
+                                            <input type="text" name="name" class="form-control" id="name_id" required>
+                                            <div class="invalid-feedback">Ingresa tu nombre</div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="yourEmail" class="form-label">Correo</label>
+                                            <input type="email" name="email" class="form-control" id="email_id" required>
+                                            <div class="invalid-feedback">Ingresa un correo valido</div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="yourUsername" class="form-label">Username</label>
+                                            <div class="input-group has-validation">
+                                                <!-- <span class="input-group-text" id="inputGroupPrepend">@</span> -->
+                                                <input type="text" name="username" class="form-control" id="username_id" required>
+                                                <div class="invalid-feedback">Ingresa un usuario</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="yourPassword" class="form-label">Contraseña</label>
+                                            <input type="password" name="password" class="form-control" id="password_id" required>
+                                            <div class="invalid-feedback">Ingresa una contraseña</div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <label for="yourPassword" class="form-label">Confirmar contraseña</label>
+                                            <input type="password" name="password2" class="form-control" id="password2_id" required>
+                                            <div class="invalid-feedback">Ingresa la contraseña de confirmación</div>
+                                        </div>
+                                        
+                                        <div class="col-12">
+                                            <label for="yourUsername" class="form-label">Móvil</label>
+                                            <div class="input-group has-validation">
+                                                <input type="text" name="phone" class="form-control" id="phone" required>
+                                                <div class="invalid-feedback">Ingresa un numero</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-12">
+                                            <div class="form-check">
+                                                <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
+                                                <label class="form-check-label" for="acceptTerms">He leído y acepto los <a href="#">Términos y Condiciones</a></label>
+                                                <div class="invalid-feedback">Deberás estar de acuerdo para continuar</div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <button class="btn btn-primary w-100" type="submit">Crear cuenta</button>
+                                        </div>
+                                        <div class="col-12">
+                                            <p class="small mb-0">Ya tienes una cuenta? <a href="{% url 'login_view' %}">Inicia sesión</a></p>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main><!-- End #main -->
+
+{% endblock content %}
+
+{% block scripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js" integrity="sha512-+gShyB8GWoOiXNwOlBaYXdLTiZt10Iy6xjACGadpqMs20aJOoh+PJt3bwUVA6Cefe7yF7vblX6QwyXZiVwTWGg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script type="text/javascript">
+		const phoneInputField = document.querySelector("#phone");
+		const phoneInput = window.intlTelInput(phoneInputField, {
+		preferredCountries: ["co","es","us"],
+		utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/utils.js",
+		});
+	</script>
+{% endblock %}
