@@ -33,10 +33,10 @@
                         <p class="text-center small">Ingresa tu Usuario & Contraseña para continuar</p>
                     </div>
 
-                    <form class="row g-3 needs-validation" novalidate>
-
+                    <form class="row g-3 needs-validation" method="POST" novalidate>
+                        {% csrf_token %}
                         <div class="col-12">
-                        <label for="yourUsername" class="form-label">Usuario</label>
+                        <label for="username_id" class="form-label">Usuario</label>
                         <div class="input-group has-validation">
                             <input type="text" name="username" class="form-control" id="username_id" required>
                             <div class="invalid-feedback">Ingresa tu usuario</div>
@@ -44,7 +44,7 @@
                         </div>
 
                         <div class="col-12">
-                        <label for="yourPassword" class="form-label">Contraseña</label>
+                        <label for="password_id" class="form-label">Contraseña</label>
                         <input type="password" name="password" class="form-control" id="password_id" required>
                         <div class="invalid-feedback">Ingresa tu contraseña</div>
                         </div>
