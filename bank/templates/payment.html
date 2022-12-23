@@ -1,0 +1,102 @@
+{% extends 'shared/base.html' %}
+
+{% block content %}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Pagos</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+                <li class="breadcrumb-item">Pagina</li>
+                <li class="breadcrumb-item active">Pagos</li>
+            </ol>
+        </nav>
+    </div>
+
+    <section class="section">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <span class="card-title" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-custom-class="custom-tooltip"
+                        data-bs-title="En este módulo podrás ingresa el saldo gastado   , para llevar seguimiento a tus gastos">
+                            Agregar pago
+                            <i class="bi bi-patch-question-fill"></i>
+                        </span>
+                        <form class="row g-3 needs-validation mt-lg-2" method="POST" novalidate>
+                            {% csrf_token %}
+                            <div class="col-12">
+                                <label for="balance_id" class="form-label" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip" data-bs-title="Selecciona una categoria para que el pago ingresado sea más especifico">
+                                    Tipo de categoría:
+                                </label>
+                                <div class="input-group has-validation">
+                                    <select class="form-select" aria-label="Selecciona una categoria" name="category" id="category_id" required>
+                                        <option value="" selected>Selecciona...</option>
+                                        {% for category_object in payment_category %}
+                                            <option value="{{category_object.id}}">{{category_object.name}}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <div class="invalid-feedback">Seleccione el tipo de categoría</div>
+                                </div>
+
+                                <label for="paid_value_id" class="form-label" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip" data-bs-title="Ingresa un valor mayor a 0. Esto será el gasto realizado que deseas guardar en tu historia del mes">
+                                    Valor gastado:
+                                </label>
+                                <div class="input-group has-validation">
+                                    <input type="number" min="1" name="paid_value" class="form-control" id="paid_value_id" required>
+                                    <div class="invalid-feedback">Ingresa el valor gastado($1000-$10000)</div>
+                                </div>
+                            </div>
+    
+                            <div class="col-12">
+                                <label for="description_id" class="form-label" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip" data-bs-title="Ingresa una descripción para conocer a que valor se relaciona">Descripción:</label>
+                                <input type="text" name="description" class="form-control" id="description_id" required>
+                                <div class="invalid-feedback">Ingresa una descripción para identificar el pago</div>
+                            </div>
+    
+                            <div class="col-12 text-end">
+                                <button class="btn btn-primary" type="submit">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Historia de pagos</h5>
+                        <p>Pagos realizados durante el mes</p>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Tipo</th>
+                                        <th scope="col">Descripcion</th>
+                                        <th scope="col">Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for movement_wallet_object in movement_wallet %}
+                                        <tr>
+                                            <th scope="row">1</th>
+                                            <td>{{movement_wallet_object.payment_category_f.name}}</td>
+                                            <td>{{movement_wallet_object.description}}</td>
+                                            <td>${{movement_wallet_object.actual_value}}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

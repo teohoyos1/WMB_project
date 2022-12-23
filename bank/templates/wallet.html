@@ -1,0 +1,116 @@
+{% extends 'shared/base.html' %}
+
+{% block content %}
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1>Cartera</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="index.html">Inicio</a></li>
+                <li class="breadcrumb-item">Pagina</li>
+                <li class="breadcrumb-item active">Cartera</li>
+            </ol>
+        </nav>
+    </div>
+
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="card">
+                    <div class="card-body">
+                        <span class="card-title" data-bs-toggle="tooltip" data-bs-placement="right"
+                        data-bs-custom-class="custom-tooltip"
+                        data-bs-title="En este módulo podrás ingresa el saldo gastado   , para llevar seguimiento a tus gastos">
+                            Establecer saldo
+                            <i class="bi bi-patch-question-fill"></i>
+                        </span>
+                        <form class="row g-3 needs-validation mt-lg-2" method="POST" novalidate>
+                            {% csrf_token %}
+                            <div class="col-12">
+                                <label for="balance_id" class="form-label" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-custom-class="custom-tooltip" data-bs-title="Ingresa un valor mayor a 0. Esto será el gasto realizado que deseas guardar en tu historia del mes">
+                                    Saldo cartera:
+                                </label>
+                                <div class="input-group has-validation">
+                                    <input type="number" min="1" name="balance" class="form-control" id="balance_id" required>
+                                    <div class="invalid-feedback">Ingresa el saldo de la cartera($1-$10000...)</div>
+                                </div>
+                            </div>
+    
+                            <div class="col-12 text-end">
+                                <button class="btn btn-primary" id="btn_wallet" type="submit">Guardar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+
+                <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Mi Cartera</h5>
+                      <p class="card-text">Tu saldo actual es:</p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">
+                        {% if wallet_object is not None %}
+                          <h2>$ {{wallet_object.balance}} COP</h2>
+                        {% else %}
+                          <h2>$ 0 COP</h2>
+                        {% endif %}
+                      </li>
+                      <li class="list-group-item">
+                        <div class="accordion accordion-flush" id="accordionFlushExample">
+                            <div class="accordion-item">
+                              <h2 class="accordion-header" id="flush-headingOne">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                                  Más info
+                                </button>
+                              </h2>
+                              <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <div class="row g-3">
+                                        <div class="col-4 col pe-lg-0">
+                                          <p class="card-text fw-bold">Banco:</p>
+                                        </div>
+                                        <div class="col p-lg-0">
+                                          {% if wallet_object is not None %}
+                                            <p class="card-text">{{wallet_object.bank_f.name}}</p>
+                                          {% else %}
+                                            <p class="card-text">Bancolombiaaa</p>
+                                          {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="row g-3">
+                                        <div class="col-4 col pe-lg-0">
+                                          <p class="card-text fw-bold">Último movimiento:</p>
+                                        </div>
+                                        <div class="col p-lg-0">
+                                          <p class="card-text">31 de Diciembre del 2022</p>
+                                        </div>
+                                    </div>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+
+                      </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  $("#btn_wallet").one('click', function (event) {  
+      event.preventDefault();
+      $(this).prop('disabled', true);
+      //do something
+  });
+</script>
+{% endblock %}

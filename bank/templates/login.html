@@ -2,7 +2,7 @@
 
 {% block head %} 
     <style>
-        header, footer {
+        header, footer, aside {
             display:none!important;visibility: hidden!important;position: absolute!important; top: -9999px!important; left: -9999px !important;opacity: 0 !important;width: 0 !important; height: 0!important;
         }
     </style>
@@ -18,7 +18,7 @@
                 <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
                 <div class="d-flex justify-content-center py-4">
-                    <a href="index.html" class="logo d-flex align-items-center w-auto">
+                    <a href="{% url 'home' %}" class="logo d-flex align-items-center w-auto">
                     <img src="../../static/assets/img/logo_p1.png" alt="">
                     <span class="d-none d-lg-block">MyBank</span>
                     </a>

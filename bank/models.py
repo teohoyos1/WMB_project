@@ -7,6 +7,10 @@ from django.utils import timezone
 class Person(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.CharField(max_length=100, blank=True, null=True)
+    
+    def __str__(self):
+        return str(self.pk)
+    
 
 class Bank(models.Model):
     name = models.CharField(max_length=200)
@@ -17,7 +21,7 @@ class Bank(models.Model):
 class Wallet(models.Model):
     bank_f = models.ForeignKey(Bank, on_delete=models.CASCADE)
     person_f = models.ForeignKey(Person, on_delete=models.CASCADE)
-    balance = models.DecimalField(max_digits=20, decimal_places=2)
+    balance = models.IntegerField()
 
 class Payment_category(models.Model):
     name = models.CharField(max_length=120)
@@ -26,10 +30,10 @@ class Payment_category(models.Model):
         return self.name
 
 class Movement_wallet(models.Model):
-    wallet_f = models.ForeignKey(Bank, on_delete=models.CASCADE)
+    wallet_f = models.ForeignKey(Wallet, on_delete=models.CASCADE)
     record_date = models.DateTimeField('record date')
-    before_value = models.DecimalField(max_digits=20, decimal_places=2)
-    actual_value = models.DecimalField(max_digits=20, decimal_places=2)
+    before_value = models.IntegerField()
+    actual_value = models.IntegerField()
     type_movement = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
     payment_category_f = models.ForeignKey(Payment_category, on_delete=models.CASCADE)
